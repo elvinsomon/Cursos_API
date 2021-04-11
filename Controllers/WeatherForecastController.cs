@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-
+using Cursos.Models;
 namespace Cursos.Controllers
 {
     [ApiController]
@@ -17,23 +17,18 @@ namespace Cursos.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        CursosCTX ctx;
+        
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, CursosCTX _ctx)
         {
             _logger = logger;
+            ctx = _ctx;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public IEnumerable<Estudiante> Get()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+           return ctx.Estudiante.ToList();
         }
     }
 }
