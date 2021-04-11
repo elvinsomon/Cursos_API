@@ -1,6 +1,14 @@
 CREATE DATABASE Cursos
 Use Cursos
 
+CREATE TABLE Usuarios 
+(
+ IdUsuario int primary key identity,
+ Usuario varchar(50) unique,
+ Clave varchar(500),
+ Sal varchar(500)
+)
+
 CREATE TABLE Estudiante
 (
     IdEstudiante int primary key identity,
