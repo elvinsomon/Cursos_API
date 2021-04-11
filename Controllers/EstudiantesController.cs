@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Cursos.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Razor.Language.CodeGeneration;
 
 namespace Cursos.Controllers
 {
@@ -26,8 +27,8 @@ namespace Cursos.Controllers
             return await ctx.Estudiante.ToArrayAsync();
         }
 
-        [HttpGet("{Id}")]
-        public async Task<IActionResult> Get(int Id)
+        [HttpGet("{Id}", Name="GetEstudiante")]
+        public async Task<IActionResult> Get(int Id, string codigo)
         {
             var estudiante = await ctx.Estudiante.FindAsync(Id);
             
@@ -53,10 +54,36 @@ namespace Cursos.Controllers
                 Estudiante.IdEstudiante = 0;
                 ctx.Estudiante.Add(Estudiante);
                 await ctx.SaveChangesAsync();
-                return base.Created($"/Estudiante/{Estudiante.IdEstudiante}", Estudiante);
+                return Created($"/Estudiante/{Estudiante.IdEstudiante}", Estudiante);
+
+                //Created At Action
+                //return CreatedAtAction(nameof(Get), new{id = Estudiante.IdEstudiante, Codigo=Estudiante.Codigo}, Estudiante);
+
+                //Created At Route
+                //return CreatedAtRoute("GetEstudiante", new { id = Estudiante.IdEstudiante, codigo = Estudiante.Codigo }, Estudiante);
             }
         }
 
-        
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, Estudiante estudiante)
+        {
+            if(estudiante.IdEstudiante == 0)
+            {
+                estudiante.IdEstudiante = id;
+            }
+            if(estudiante.IdEstudiante != id)
+            {
+                return BadRequest();
+            }
+
+
+            if(!await ctx.Estudiante.Where(x => x.IdEstudiante == id).AsNoTracking().AnyAsync())
+            {
+                return NotFound();
+            }
+            ctx.Entry(estudiante).State = EntityState.Modified;
+            await ctx.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }
