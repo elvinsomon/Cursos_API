@@ -20,6 +20,7 @@ namespace Cursos.Models
         public virtual DbSet<InscripcionCurso> InscripcionCurso { get; set; }
         public virtual DbSet<Matricula> Matricula { get; set; }
         public virtual DbSet<Periodo> Periodo { get; set; }
+        public virtual DbSet<Usuarios> Usuarios {get; set;}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

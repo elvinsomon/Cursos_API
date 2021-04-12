@@ -17,8 +17,6 @@ namespace Cursos.Models
         [Compare("Clave", ErrorMessage = "Las contraseñas no coninciden.")]
         [NotMapped]
         public string ConfirmarClave {get; set;}
-        
-        [Required(ErrorMessage = "La sal no puede estar vacio.")]
         public string Sal {get; set;}
     }
 }
