@@ -133,3 +133,4 @@ C:\Users\Elvin Somon\Documents\Algoritmos\API\Cursos\obj\Debug\net5.0\Cursos.dll
 C:\Users\Elvin Somon\Documents\Algoritmos\API\Cursos\obj\Debug\net5.0\ref\Cursos.dll
 C:\Users\Elvin Somon\Documents\Algoritmos\API\Cursos\obj\Debug\net5.0\Cursos.pdb
 C:\Users\Elvin Somon\Documents\Algoritmos\API\Cursos\obj\Debug\net5.0\Cursos.genruntimeconfig.cache
+C:\Users\Elvin Somon\Documents\Algoritmos\API\Cursos\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

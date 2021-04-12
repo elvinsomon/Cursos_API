@@ -8,11 +8,13 @@ using Cursos.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Razor.Language.CodeGeneration;
 using Cursos.Helper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cursos.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
+    [Authorize]
     public class EstudiantesController : ControllerBase
     {
         private readonly CursosCTX ctx;

@@ -8,9 +8,11 @@ using Cursos.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Razor.Language.CodeGeneration;
 using Cursos.Helper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cursos.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[Controller]")]
     public class UsuariosController : ControllerBase
@@ -21,6 +23,7 @@ namespace Cursos.Controllers
             ctx = _ctx;
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Post(Usuarios usuario)
         {
@@ -44,8 +47,29 @@ namespace Cursos.Controllers
                 IdUsuario = usuario.IdUsuario,
                 Name = usuario.Usuario
             });
-
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            List<UsuarioVM> usuarios= await ctx.Usuarios.Select(x => new UsuarioVM(){
+                IdUsuario = x.IdUsuario,
+                Name = x.Usuario
+            }).ToListAsync();
+            return Ok(usuarios);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        { 
+            List<UsuarioVM> usuarios= await ctx.Usuarios.Where(x => x.IdUsuario == id).Select(x => new UsuarioVM(){
+                IdUsuario = x.IdUsuario,
+                Name = x.Usuario
+            }).ToListAsync();
+            return Ok(usuarios);
+        }
+
+        
     }
 
     public class UsuarioVM
